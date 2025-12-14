@@ -1,22 +1,21 @@
 package com.example.airquality.airquality;
 
-import com.example.airquality.airquality.dto.AirQualityResponse;
 import com.example.airquality.airquality.dto.AirQualityStationDto;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/air-quality")
+@RequiredArgsConstructor
 public class AirQualityController {
+    private final AirQualityService airQualityService;
 
     @GetMapping
-    public ResponseEntity<AirQualityResponse> listStations() {
-        var stations = new ArrayList<AirQualityStationDto>();
-        stations.add(new AirQualityStationDto("Warszawa"));
-        return ResponseEntity.ok(new AirQualityResponse(stations));
+    public List<AirQualityStationDto> listStations() {
+        return airQualityService.getStations();
     }
 }

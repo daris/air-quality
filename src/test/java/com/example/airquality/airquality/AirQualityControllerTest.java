@@ -22,6 +22,6 @@ class AirQualityControllerTest {
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.stations[0].name").value("Warszawa"));
+                .andExpect(jsonPath("$.[0].name").value("Warszawa"));
     }
 }
