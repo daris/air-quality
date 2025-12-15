@@ -17,4 +17,16 @@ public class AirQualityStation {
     UUID id;
 
     String city;
+
+    AirQualityIndex overallIndex;
+
+    AirQualityIndex so2Index;
+
+    AirQualityIndex no2Index;
+
+    AirQualityIndex pm10Index;
+
+    AirQualityIndex pm25Index;
+
+    AirQualityIndex o3Index;
 }

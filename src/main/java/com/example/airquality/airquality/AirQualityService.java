@@ -2,6 +2,7 @@ package com.example.airquality.airquality;
 
 import com.example.airquality.airquality.dto.AirQualityStationDto;
 import com.example.airquality.pjpapi.PjpApiService;
+import com.example.airquality.pjpapi.dto.AqIndexResponse;
 import com.example.airquality.pjpapi.dto.PjpStationDto;
 import com.example.airquality.pjpapi.dto.PjpStationResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,9 @@ public class AirQualityService {
         PjpStationResponse pjpStationResponse = pjpApiService.getStations();
 
         for (PjpStationDto pjpStationDto : pjpStationResponse.stations()) {
-            AirQualityStation airQualityStation = airQualityPjpStationMapper.toEntity(pjpStationDto);
+            AqIndexResponse aqIndexResponse = pjpApiService.getIndex(pjpStationDto.stationId());
+
+            AirQualityStation airQualityStation = airQualityPjpStationMapper.toEntity(pjpStationDto, aqIndexResponse);
             Optional<AirQualityStation> existingAirQuality = airQualityStationRepository.findByCity(airQualityStation.getCity());
             if (existingAirQuality.isPresent()) {
                 airQualityStation.setId(existingAirQuality.get().getId());
