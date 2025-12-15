@@ -27,6 +27,7 @@ mvn clean package
 ### Run the Application
 
 ```bash
+docker compose up -d
 mvn spring-boot:run
 ```
 
