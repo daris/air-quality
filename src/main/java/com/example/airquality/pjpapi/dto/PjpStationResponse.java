@@ -1,4 +1,4 @@
-package com.example.airquality.airquality.dto;
+package com.example.airquality.pjpapi.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

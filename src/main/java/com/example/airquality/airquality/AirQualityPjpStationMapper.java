@@ -1,6 +1,6 @@
 package com.example.airquality.airquality;
 
-import com.example.airquality.airquality.dto.PjpStationDto;
+import com.example.airquality.pjpapi.dto.PjpStationDto;
 import org.springframework.stereotype.Component;
 
 @Component
