@@ -16,6 +16,7 @@ public class AirQualityController {
 
     @GetMapping
     public List<AirQualityStationDto> listStations() {
+        airQualityService.fetchData();
         return airQualityService.getStations();
     }
 }
