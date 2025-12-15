@@ -2,21 +2,14 @@ package com.example.airquality.pjpapi;
 
 import com.example.airquality.pjpapi.dto.AqIndexResponse;
 import com.example.airquality.pjpapi.dto.PjpStationResponse;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
+@RequiredArgsConstructor
 public class PjpApiService {
     private final RestClient restClient;
-
-    public PjpApiService(
-            @Value("${pjpApi.baseUrl}") String baseUrl
-    ) {
-        this.restClient = RestClient.builder()
-                .baseUrl(baseUrl)
-                .build();
-    }
 
     public PjpStationResponse getStations() {
         return restClient
