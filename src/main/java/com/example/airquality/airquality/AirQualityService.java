@@ -30,16 +30,18 @@ public class AirQualityService {
         PjpStationResponse pjpStationResponse = pjpApiService.getStations();
 
         for (PjpStationDto pjpStationDto : pjpStationResponse.stations()) {
-            AqIndexResponse aqIndexResponse = pjpApiService.getIndex(pjpStationDto.stationId());
-
-            AirQualityStation airQualityStation = airQualityPjpStationMapper.toEntity(pjpStationDto, aqIndexResponse);
-            Optional<AirQualityStation> existingAirQuality = airQualityStationRepository.findByCity(airQualityStation.getCity());
-            if (existingAirQuality.isPresent()) {
-                airQualityStation.setId(existingAirQuality.get().getId());
-                airQualityStationRepository.save(airQualityStation);
-            } else {
-                airQualityStationRepository.save(airQualityStation);
-            }
+            fetchIndexForStation(pjpStationDto);
         }
+    }
+
+    private void fetchIndexForStation(PjpStationDto pjpStationDto) {
+        AqIndexResponse aqIndexResponse = pjpApiService.getIndex(pjpStationDto.stationId());
+
+        AirQualityStation airQualityStation = airQualityPjpStationMapper.toEntity(pjpStationDto, aqIndexResponse);
+        Optional<AirQualityStation> existingAirQuality = airQualityStationRepository.findByCity(airQualityStation.getCity());
+        if (existingAirQuality.isPresent()) {
+            airQualityStation.setId(existingAirQuality.get().getId());
+        }
+        airQualityStationRepository.save(airQualityStation);
     }
 }
