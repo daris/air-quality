@@ -1,4 +1,4 @@
 package com.example.airquality.airquality.dto;
 
-public record AirQualityStationDto(String name) {
+public record AirQualityStationDto(String cityName) {
 }

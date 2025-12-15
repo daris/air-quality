@@ -1,13 +1,12 @@
 package com.example.airquality.airquality;
 
 import com.example.airquality.airquality.dto.AirQualityStationDto;
+import com.example.airquality.pjpapi.PjpApiService;
 import com.example.airquality.pjpapi.dto.PjpStationDto;
 import com.example.airquality.pjpapi.dto.PjpStationResponse;
-import com.example.airquality.pjpapi.PjpApiService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,11 +16,13 @@ public class AirQualityService {
     private final AirQualityPjpStationMapper airQualityPjpStationMapper;
     private final AirQualityStationRepository airQualityStationRepository;
     private final PjpApiService pjpApiService;
+    private final AirQualityStationMapper airQualityStationMapper;
 
     public List<AirQualityStationDto> getStations() {
-        var stations = new ArrayList<AirQualityStationDto>();
-        stations.add(new AirQualityStationDto("Warszawa"));
-        return stations;
+        return airQualityStationRepository.findAll()
+                .stream()
+                .map(airQualityStationMapper::toDto)
+                .toList();
     }
 
     public void fetchData() {
