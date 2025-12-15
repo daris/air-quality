@@ -2,14 +2,17 @@ package com.example.airquality.pjpapi;
 
 import com.example.airquality.pjpapi.dto.AqIndexResponse;
 import com.example.airquality.pjpapi.dto.PjpStationResponse;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
 @Service
-@RequiredArgsConstructor
 public class PjpApiService {
     private final RestClient restClient;
+
+    public PjpApiService(@Qualifier("pjpRestClient") RestClient restClient) {
+        this.restClient = restClient;
+    }
 
     public PjpStationResponse getStations() {
         return restClient
